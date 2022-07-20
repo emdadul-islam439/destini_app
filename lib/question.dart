@@ -1,6 +1,7 @@
-class Question {
-  final String question;
-  final bool answer;
+class Story {
+  final String story;
+  final String positiveOutcome;
+  final String negativeOutcome;
 
-  Question({required this.question, required this.answer});
+  Story({required this.story, required this.positiveOutcome, required this.negativeOutcome});
 }

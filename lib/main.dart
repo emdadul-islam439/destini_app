@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'quiz_info.dart';
+import 'story_info.dart';
 
 void main() {
   runApp(const DestiniApp());
@@ -13,21 +13,23 @@ class DestiniApp extends StatefulWidget {
 }
 
 class _DestiniAppState extends State<DestiniApp> {
-  QuizInfo quizInfo = QuizInfo();
-  late String questionStatement;
-  late List<Icon> resultIconList;
+  StoryInfo storyInfo = StoryInfo();
+  late String storyStatement;
+  late String positiveOutcome;
+  late String negativeOutcome;
 
   void settingUpTheState({required bool isCorrectAnswer}){
-    quizInfo.modifyTheResultList(isCorrectAnswer: isCorrectAnswer);
     setState((){
-      questionStatement = quizInfo.getQuestionText();
-      resultIconList = quizInfo.getResultIconList();
+      storyStatement = storyInfo.getQuestionText();
+      positiveOutcome = storyInfo.getPositiveOutcome();
+      negativeOutcome = storyInfo.getNegativeOutcome();
     });
   }
   @override
   void initState() {
-    questionStatement = quizInfo.getQuestionText();
-    resultIconList = quizInfo.getResultIconList();
+    storyStatement = storyInfo.getQuestionText();
+    positiveOutcome = storyInfo.getPositiveOutcome();
+    negativeOutcome = storyInfo.getNegativeOutcome();
     super.initState();
   }
 
@@ -46,7 +48,7 @@ class _DestiniAppState extends State<DestiniApp> {
                 flex: 6,
                 child: Center(
                   child: Text(
-                    questionStatement,
+                    storyStatement,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
@@ -61,7 +63,7 @@ class _DestiniAppState extends State<DestiniApp> {
                     if (kDebugMode) {
                       print("YES selected...");
                     }
-                    if(quizInfo.getCorrectAnswer() == true){
+                    if(storyInfo.getPositiveOutcome() == true){
                       settingUpTheState(isCorrectAnswer: true);
                     }else{
                       settingUpTheState(isCorrectAnswer: false);
@@ -70,9 +72,9 @@ class _DestiniAppState extends State<DestiniApp> {
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.green,
                   ),
-                  child: const Text(
-                    'Yes',
-                    style: TextStyle(
+                  child: Text(
+                    positiveOutcome,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
                       fontFamily: 'Source Sans Pro',
@@ -87,7 +89,7 @@ class _DestiniAppState extends State<DestiniApp> {
                     if (kDebugMode) {
                       print("NO selected...");
                     }
-                    if(quizInfo.getCorrectAnswer() == false){
+                    if(storyInfo.getPositiveOutcome() == false){
                       settingUpTheState(isCorrectAnswer: true);
                     }else{
                       settingUpTheState(isCorrectAnswer: false);
@@ -96,9 +98,9 @@ class _DestiniAppState extends State<DestiniApp> {
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.red,
                   ),
-                  child: const Text(
-                    'No',
-                    style: TextStyle(
+                  child: Text(
+                    negativeOutcome,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
                       fontFamily: 'Source Sans Pro',
@@ -106,10 +108,6 @@ class _DestiniAppState extends State<DestiniApp> {
                   ),
                 ),
               ),
-              const SizedBox(height: 8.0),
-              Row(
-                children: resultIconList,
-              )
             ],
           ),
         ),
