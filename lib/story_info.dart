@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'question.dart';
+import 'story.dart';
 
 class StoryInfo {
   //region main properties
@@ -54,7 +54,7 @@ class StoryInfo {
 
   int _currentStoryIdx = 0;
 
-  String getQuestionText() {
+  String getStoryText() {
     String story = _storyList[_currentStoryIdx].story;
     if (_isStoryListNotOver()) {
       _currentStoryIdx++;
@@ -66,6 +66,14 @@ class StoryInfo {
   }
   String getNegativeOutcome() {
     return _storyList[_currentStoryIdx].negativeOutcome;
+  }
+
+  bool isStoriesFinished(){
+    return _currentStoryIdx == _storyList.length-1;
+  }
+
+  void reStartAll(){
+    _currentStoryIdx = 0;
   }
   //endregion
 }
