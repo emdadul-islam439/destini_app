@@ -21,7 +21,7 @@ class _DestiniAppState extends State<DestiniApp> {
 
   void settingUpTheState() {
     setState(() {
-      if(isReStartingNeeded){
+      if (isReStartingNeeded) {
         storyInfo.reStartAll();
         isReStartingNeeded = false;
       }
@@ -35,7 +35,7 @@ class _DestiniAppState extends State<DestiniApp> {
     super.initState();
   }
 
-  void _initializeAll(){
+  void _initializeAll() {
     storyStatement = storyInfo.getStoryText();
     positiveOutcome = storyInfo.getPositiveOutcome();
     negativeOutcome = storyInfo.getNegativeOutcome();
@@ -47,14 +47,20 @@ class _DestiniAppState extends State<DestiniApp> {
       title: 'Quizzler App',
       home: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.black,
-          body: Padding(
-            padding: const EdgeInsets.all(16.0),
+          body: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 15.0),
+            constraints: const BoxConstraints.expand(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(
-                  flex: 7,
+                  flex: 12,
                   child: Center(
                     child: Text(
                       storyStatement,
@@ -67,7 +73,7 @@ class _DestiniAppState extends State<DestiniApp> {
                   ),
                 ),
                 Expanded(
-                  flex: storyInfo.isStoriesFinished() ? 0 : 1,
+                  flex: storyInfo.isStoriesFinished() ? 0 : 2,
                   child: storyInfo.isStoriesFinished()
                       ? const SizedBox()
                       : TextButton(
@@ -89,9 +95,10 @@ class _DestiniAppState extends State<DestiniApp> {
                 ),
                 const SizedBox(height: 16.0),
                 Expanded(
+                  flex: 2,
                   child: TextButton(
                     onPressed: () {
-                      if(storyInfo.isStoriesFinished()){
+                      if (storyInfo.isStoriesFinished()) {
                         isReStartingNeeded = true;
                       }
                       settingUpTheState();
@@ -100,7 +107,9 @@ class _DestiniAppState extends State<DestiniApp> {
                       backgroundColor: Colors.red,
                     ),
                     child: Text(
-                      storyInfo.isStoriesFinished() ? 'Restart' : negativeOutcome,
+                      storyInfo.isStoriesFinished()
+                          ? 'Restart'
+                          : negativeOutcome,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,
@@ -110,7 +119,7 @@ class _DestiniAppState extends State<DestiniApp> {
                   ),
                 ),
                 Expanded(
-                  flex: storyInfo.isStoriesFinished() ? 1 : 0,
+                  flex: storyInfo.isStoriesFinished() ? 2 : 0,
                   child: const SizedBox(),
                 ),
               ],
